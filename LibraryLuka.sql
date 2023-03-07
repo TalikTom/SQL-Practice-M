@@ -14,14 +14,14 @@ create table Membership
     StartDate datetime not null,
     EndDate datetime,
     AccountNo int not null,
-    MemberID uniqueidentifier not null
+    MemberId uniqueidentifier not null
 );
 
 create table Loan
 (
     Id uniqueidentifier PRIMARY KEY not null,
     StartDate datetime not null,
-    MemberID uniqueidentifier not null
+    MemberId uniqueidentifier not null
 );
 
 create table Book 
@@ -29,7 +29,7 @@ create table Book
     Id uniqueidentifier PRIMARY KEY not null,
     Title varchar(255) not null,
     ReleaseYear int not null,
-    LoanID uniqueidentifier not null
+    LoanId uniqueidentifier not null
 );
 
 create table Category 
@@ -42,21 +42,21 @@ create table Category
 create table BookCategory
 (
     Id uniqueidentifier PRIMARY KEY not null,
-    BookID uniqueidentifier not null,
-    CategoryID uniqueidentifier not null
+    BookId uniqueidentifier not null,
+    CategoryId uniqueidentifier not null
 );
 
-alter table Membership add constraint FK_Membership_Member_memberID FOREIGN KEY (MemberID)
+alter table Membership add constraint FK_Membership_Member_memberID FOREIGN KEY (MemberId)
       REFERENCES Member (Id);
 
-alter table Loan add constraint FK_Loan_Member_memberID FOREIGN KEY (MemberID)
+alter table Loan add constraint FK_Loan_Member_memberID FOREIGN KEY (MemberId)
       REFERENCES Member (Id);
 
-alter table Book add constraint FK_Book_Loan_loanID FOREIGN KEY (LoanID)
+alter table Book add constraint FK_Book_Loan_loanID FOREIGN KEY (LoanId)
       REFERENCES Loan (Id);
 
-alter table BookCategory add constraint FK_BookCategory_Book_bookID FOREIGN KEY (BookID)
+alter table BookCategory add constraint FK_BookCategory_Book_bookID FOREIGN KEY (BookId)
       REFERENCES Book (Id);   
 
-alter table BookCategory add constraint FK_BookCategory_Category_categoryID FOREIGN KEY (CategoryID)
+alter table BookCategory add constraint FK_BookCategory_Category_categoryID FOREIGN KEY (CategoryId)
       REFERENCES Category (Id);   

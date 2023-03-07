@@ -13,7 +13,8 @@ create table membership
     id uniqueidentifier PRIMARY KEY not null,
     startDate datetime not null,
     endDate datetime,
-    accountNo int not null
+    accountNo int not null,
+    membership uniqueidentifier not null
 );
 
 create table loan

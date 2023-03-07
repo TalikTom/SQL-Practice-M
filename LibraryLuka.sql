@@ -14,7 +14,7 @@ create table Membership
     startDate datetime not null,
     endDate datetime,
     accountNo int not null,
-    membershipID uniqueidentifier not null
+    memberID uniqueidentifier not null
 );
 
 create table Loan
@@ -46,8 +46,8 @@ create table BookCategory
     categoryID uniqueidentifier not null
 );
 
-alter table Membership add constraint FK_Membership_Membership_membershipID FOREIGN KEY (membershipID)
-      REFERENCES Membership (id);
+alter table Membership add constraint FK_Membership_Member_memberID FOREIGN KEY (memberID)
+      REFERENCES Member (id);
 
 alter table Loan add constraint FK_Loan_Member_memberID FOREIGN KEY (memberID)
       REFERENCES Member (id);

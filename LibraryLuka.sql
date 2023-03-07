@@ -46,17 +46,17 @@ create table BookCategory
     CategoryId uniqueidentifier not null
 );
 
-alter table Membership add constraint FK_Membership_Member_memberID FOREIGN KEY (MemberId)
+alter table Membership add constraint FK_Membership_Member_MemberID FOREIGN KEY (MemberId)
       REFERENCES Member (Id);
 
-alter table Loan add constraint FK_Loan_Member_memberID FOREIGN KEY (MemberId)
+alter table Loan add constraint FK_Loan_Member_MemberID FOREIGN KEY (MemberId)
       REFERENCES Member (Id);
 
-alter table Book add constraint FK_Book_Loan_loanID FOREIGN KEY (LoanId)
+alter table Book add constraint FK_Book_Loan_LoanID FOREIGN KEY (LoanId)
       REFERENCES Loan (Id);
 
-alter table BookCategory add constraint FK_BookCategory_Book_bookID FOREIGN KEY (BookId)
+alter table BookCategory add constraint FK_BookCategory_Book_BookID FOREIGN KEY (BookId)
       REFERENCES Book (Id);   
 
-alter table BookCategory add constraint FK_BookCategory_Category_categoryID FOREIGN KEY (CategoryId)
+alter table BookCategory add constraint FK_BookCategory_Category_CategoryID FOREIGN KEY (CategoryId)
       REFERENCES Category (Id);   

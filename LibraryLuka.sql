@@ -61,17 +61,17 @@ alter table BookCategory add constraint FK_BookCategory_Category_CategoryID FORE
       REFERENCES Category (Id);   
 
 
-      insert into Member values
-(newid(), 'Luka', 'Agic', '12345678912'),
+declare @id as uniqueidentifier set @id = newid();
+
+insert into Member values
+(@id, 'Luka', 'Agic', '12345678912'),
 (newid(), 'Jona', 'Agic', '12345678914'),
 (newid(), 'Marija', 'Agic', '12345678913');
 
-select * from Member;
+insert into Membership (Id, StartDate, AccountNo) values (
+@id, '2023-01-01','1234567');
 
-insert into Membership (Id, StartDate, AccountNo, MemberId) values (
-newid(), '2023-01-01','1234567', 'BBEFCC59-5FE2-465D-9A6B-FC7A771D09D3');
-
-insert into Loan values (newid(), '2023-01-01', 'BBEFCC59-5FE2-465D-9A6B-FC7A771D09D3');
+insert into Loan values (newid(), '2023-01-01', @id);
 
 insert into Book values (newId(), 'The road', '1998', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B');
 

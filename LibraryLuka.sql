@@ -2,61 +2,61 @@ use LibraryLuka;
 
 create table Member
 (
-    id uniqueidentifier PRIMARY KEY not null,
-    firstName varchar(50) not null,
-    lastName varchar(50) not null,
-    oib char(11)
+    Id uniqueidentifier PRIMARY KEY not null,
+    FirstName varchar(50) not null,
+    LastName varchar(50) not null,
+    Oib char(11)
 );
 
 create table Membership
 (
-    id uniqueidentifier PRIMARY KEY not null,
-    startDate datetime not null,
-    endDate datetime,
-    accountNo int not null,
-    memberID uniqueidentifier not null
+    Id uniqueidentifier PRIMARY KEY not null,
+    StartDate datetime not null,
+    EndDate datetime,
+    AccountNo int not null,
+    MemberID uniqueidentifier not null
 );
 
 create table Loan
 (
-    id uniqueidentifier PRIMARY KEY not null,
-    startDate datetime not null,
-    memberID uniqueidentifier not null
+    Id uniqueidentifier PRIMARY KEY not null,
+    StartDate datetime not null,
+    MemberID uniqueidentifier not null
 );
 
 create table Book 
 (
-    id uniqueidentifier PRIMARY KEY not null,
-    title varchar(255) not null,
-    releaseYear int not null,
-    loanID uniqueidentifier not null
+    Id uniqueidentifier PRIMARY KEY not null,
+    Title varchar(255) not null,
+    ReleaseYear int not null,
+    LoanID uniqueidentifier not null
 );
 
 create table Category 
 ( 
-   id uniqueidentifier PRIMARY KEY not null,
-   name varchar(255) not null, 
+   Id uniqueidentifier PRIMARY KEY not null,
+   Title varchar(255) not null, 
 );
 
 
 create table BookCategory
 (
-    id uniqueidentifier PRIMARY KEY not null,
-    bookID uniqueidentifier not null,
-    categoryID uniqueidentifier not null
+    Id uniqueidentifier PRIMARY KEY not null,
+    BookID uniqueidentifier not null,
+    CategoryID uniqueidentifier not null
 );
 
-alter table Membership add constraint FK_Membership_Member_memberID FOREIGN KEY (memberID)
-      REFERENCES Member (id);
+alter table Membership add constraint FK_Membership_Member_memberID FOREIGN KEY (MemberID)
+      REFERENCES Member (Id);
 
-alter table Loan add constraint FK_Loan_Member_memberID FOREIGN KEY (memberID)
-      REFERENCES Member (id);
+alter table Loan add constraint FK_Loan_Member_memberID FOREIGN KEY (MemberID)
+      REFERENCES Member (Id);
 
-alter table Book add constraint FK_Book_Loan_loanID FOREIGN KEY (loanID)
-      REFERENCES Loan (id);
+alter table Book add constraint FK_Book_Loan_loanID FOREIGN KEY (LoanID)
+      REFERENCES Loan (Id);
 
-alter table BookCategory add constraint FK_BookCategory_Book_bookID FOREIGN KEY (bookID)
-      REFERENCES book (id);   
+alter table BookCategory add constraint FK_BookCategory_Book_bookID FOREIGN KEY (BookID)
+      REFERENCES Book (Id);   
 
-alter table BookCategory add constraint FK_BookCategory_Category_categoryID FOREIGN KEY (categoryID)
-      REFERENCES category (id);   
+alter table BookCategory add constraint FK_BookCategory_Category_categoryID FOREIGN KEY (CategoryID)
+      REFERENCES Category (Id);   

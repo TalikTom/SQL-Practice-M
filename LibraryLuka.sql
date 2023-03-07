@@ -13,8 +13,7 @@ create table Membership
     Id uniqueidentifier PRIMARY KEY not null,
     StartDate datetime not null,
     EndDate datetime,
-    AccountNo int not null,
-    MemberId uniqueidentifier not null
+    AccountNo int not null
 );
 
 create table Loan
@@ -46,7 +45,7 @@ create table BookCategory
     CategoryId uniqueidentifier not null
 );
 
-alter table Membership add constraint FK_Membership_Member_MemberID FOREIGN KEY (MemberId)
+alter table Membership add constraint FK_Membership_Member_MemberID FOREIGN KEY (Id)
       REFERENCES Member (Id);
 
 alter table Loan add constraint FK_Loan_Member_MemberID FOREIGN KEY (MemberId)

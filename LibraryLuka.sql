@@ -201,3 +201,20 @@ WHERE Id = @horror;
 DELETE FROM Category; /* deletes everything from a table, if not constrained */
 
 DELETE FROM Member WHERE Id= @luka;
+
+
+/*********************************/
+/* Aggregate functions */
+
+SELECT title, COUNT() as NumberOfCategories
+FROM Category 
+GROUP BY Title;
+
+/* Count distinct categories in comparison to book containing Love in the title */
+
+SELECT COUNT(distinct title) FROM Category a
+INNER JOIN BookCategory b 
+ON a.Id = b.CategoryId
+INNER JOIN Book c
+ON b.BookId = c.Id
+WHERE b.Title like 'Love%';

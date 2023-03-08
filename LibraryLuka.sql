@@ -157,6 +157,8 @@ insert into BookCategory values
 (newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'The Art of War'), @history);
 
 
+/*********************************/
+/* Read */
 
 /* practice joins */
 
@@ -182,3 +184,20 @@ full outer join Member b
 on a.Id = b.Id
 where b.FirstName like 'Luka%'
 order by b.FirstName;
+
+
+/* Update */
+
+UPDATE "Book"
+SET "Title" = 'The Origin of Species'
+WHERE "Title" = '1984';
+
+UPDATE "Category"
+SET "Title" = 'Horour'
+WHERE Id = @horror;
+
+/* Delete */
+
+DELETE FROM Category; /* deletes everything from a table, if not constrained */
+
+DELETE FROM Member WHERE Id= @luka;

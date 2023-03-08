@@ -61,23 +61,104 @@ alter table BookCategory add constraint FK_BookCategory_Category_CategoryID FORE
       REFERENCES Category (Id);   
 
 
-declare @id as uniqueidentifier set @id = newid();
+/* declaring member id's */
+
+declare @luka as uniqueidentifier set @luka = newid();
+declare @marija as uniqueidentifier set @marija = newid();
+declare @jona as uniqueidentifier set @jona = newid();
+
+
+/* declaring genre id's */
+
+declare @horror as uniqueidentifier set @horror = newid();
+declare @classics as uniqueidentifier set @classics = newid();
+declare @fantasy as uniqueidentifier set @fantasy = newid();
+declare @humor as uniqueidentifier set @humor = newid();
+declare @satire as uniqueidentifier set @satire = newid();
+declare @adventure as uniqueidentifier set @adventure = newid();
+declare @crime as uniqueidentifier set @crime = newid();
+declare @science as uniqueidentifier set @science = newid();
+declare @mystery as uniqueidentifier set @mystery = newid();
+declare @historical as uniqueidentifier set @historical = newid();
+
+
+
+/* populating Member tables */
 
 insert into Member values
-(@id, 'Luka', 'Agic', '12345678912'),
-(newid(), 'Jona', 'Agic', '12345678914'),
-(newid(), 'Marija', 'Agic', '12345678913');
+(@luka, 'Luka', 'Agic', '12345678912'),
+(@marija, 'Jona', 'Agic', '12345678914'),
+(@jona, 'Marija', 'Agic', '12345678913');
 
-insert into Membership (Id, StartDate, AccountNo) values (
-@id, '2023-01-01','1234567');
 
-insert into Loan values (newid(), '2023-01-01', @id);
 
-insert into Book values (newId(), 'The road', '1998', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B');
+/* populating Membership tables */
 
-insert into Category values (newid(), 'Horror');
+insert into Membership (Id, StartDate, AccountNo) values 
+(@luka, '2023-01-01','1234567'),
+(@marija, '2021-01-01','1234564'),
+(@jona, '2022-01-01','1234562');
 
-insert into BookCategory values (newid(), 'EE8668F2-EBD9-471C-8AFC-697B7C99F616', '3CE0933F-0788-4BC6-9761-B4117AC224E8');
+
+
+/* populating Loan tables */
+
+insert into Loan values 
+(newid(), '2023-01-01', @luka),
+(newid(), '2023-01-01', @marija),
+(newid(), '2023-01-01', @jona);
+
+
+
+/* populating Book tables */
+
+insert into Book values 
+(newId(), 'The road', '1998', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'The Adventures of Tom Sawyer', '1978', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'Lord of the rings', '1990', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'The Hitchhikers Guide to the Galaxy', '1980', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'Don Quijote', '1955', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'Moby-Dick', '1998', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'Partners in Crime', '1929', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), '1984', '1984', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'Sherlock Holmes', '1950', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B'),
+(newId(), 'The Art of War', '1950', 'A83DEF98-2EE4-42E9-906D-CA3783DBF95B');
+
+
+
+/* populating Category tables */
+
+insert into Category values 
+(@horror, 'Horror'),
+(@classics, 'Classics'),
+(@fantasy, 'Fantasy'),
+(@humor, 'Humor'),
+(@satire, 'Satire'),
+(@adventure, 'Adventure'),
+(@crime, 'Crime'),
+(@science, 'Science fiction'),
+(@mystery, 'Mystery'),
+(@history, 'History');
+
+
+
+/* populating BookCategory tables */
+
+insert into BookCategory values 
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'The Road'), @horror),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'The Adventures of Tom Sawyer'), @classics),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'Lord of the rings'), @fantasy),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'The Hitchhikers Guide to the Galaxy'), @humor),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'Don Quijote'), @satire),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'Moby-Dick'), @adventure),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'Partners in Crime'), @crime),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = '1984'), @science),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'Sherlock Holmes'), @mystery),
+(newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'The Art of War'), @history);
+
+
+
+/* practice joins */
 
 select a.title, b.CategoryId , c.ReleaseYear, f.AccountNo 
 from Category a
@@ -90,4 +171,5 @@ on d.Id = c.LoanId
 inner join Member e 
 on e.Id = d.MemberId
 inner join Membership f 
-on f.Id = e.Id;
+on f.Id = e.Id
+where f.Id = 1;

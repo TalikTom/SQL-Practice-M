@@ -34,7 +34,7 @@ create table Book
 create table Category 
 ( 
    Id uniqueidentifier PRIMARY KEY not null,
-   Title varchar(255) not null, 
+   Title varchar(255) not null
 );
 
 
@@ -157,6 +157,8 @@ insert into BookCategory values
 (newid(), (SELECT "Id" FROM "Book" WHERE "Title" = 'The Art of War'), @history);
 
 
+/*********************************/
+/* Read */
 
 /* practice joins */
 
@@ -172,4 +174,47 @@ inner join Member e
 on e.Id = d.MemberId
 inner join Membership f 
 on f.Id = e.Id
-where f.Id = 1;
+where e.Id = @luka and e.EndDate is not null
+order by a.Title, c.ReleaseYear;
+
+
+select a.AccountNo, b.FirstName
+from Membership a
+full outer join Member b
+on a.Id = b.Id
+where b.FirstName like 'Luka%'
+order by b.FirstName;
+
+
+/* Update */
+
+UPDATE "Book"
+SET "Title" = 'The Origin of Species'
+WHERE "Title" = '1984';
+
+UPDATE "Category"
+SET "Title" = 'Horour'
+WHERE Id = @horror;
+
+/* Delete */
+
+DELETE FROM Category; /* deletes everything from a table, if not constrained */
+
+DELETE FROM Member WHERE Id= @luka;
+
+
+/*********************************/
+/* Aggregate functions */
+
+SELECT title, COUNT() as NumberOfCategories
+FROM Category 
+GROUP BY Title;
+
+/* Count distinct categories in comparison to book containing Love in the title */
+
+SELECT COUNT(distinct title) FROM Category a
+INNER JOIN BookCategory b 
+ON a.Id = b.CategoryId
+INNER JOIN Book c
+ON b.BookId = c.Id
+WHERE b.Title like 'Love%';

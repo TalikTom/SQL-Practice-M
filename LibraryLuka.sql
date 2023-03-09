@@ -28,6 +28,7 @@ create table Book
     Id uniqueidentifier PRIMARY KEY not null,
     Title varchar(255) not null,
     ReleaseYear int not null,
+    Stock int,
     LoanId uniqueidentifier not null
 );
 
@@ -291,3 +292,21 @@ end
 
 print dbo.whichBook('Adventure')
 
+/* Custom scalar function that takes one input value, Book.Id, returns a single data value, the aggregated quantity of the specified product in inventory. */
+
+CREATE FUNCTION dbo.BookStock(@BookId uniqueidentifier)
+RETURNS int
+AS
+BEGIN
+    DECLARE @ret int;
+    SELECT @ret = SUM(b.Stock)
+    FROM Book b
+    WHERE b.Id = @BookId
+     IF (@ret IS NULL)
+        SET @ret = 0;
+    RETURN @ret;
+END
+
+SELECT Id, Title, dbo.BookStock(Id) AS CurrentStock
+FROM Book
+WHERE Id = '045AB98A-ABBF-4415-B27B-08DEFB69A144';

@@ -228,10 +228,11 @@ WHERE b.Title like 'Love%';
 
 CREATE VIEW person_book 
 AS   
-SELECT CONCAT(m.FirstName,' ',m.LastName) full_name, b.Title
+SELECT CONCAT_WS(' ' , m.FirstName, m.LastName) full_name, b.Title
 FROM member m  
 inner join loan l 
 ON m.Id = l.MemberId  
 inner join book b 
 ON l.Id = b.LoanId 
+ORDER BY m.FirstName;
 

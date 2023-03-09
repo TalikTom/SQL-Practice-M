@@ -240,3 +240,15 @@ inner join Category c
 on bc.CategoryId = c.Id
 ORDER BY m.FirstName;
 
+
+/* Create view that selects horror category books */
+
+CREATE VIEW horror_books
+AS   
+SELECT b.Title, c.Title
+FROM Book b 
+inner join BookCategory bc 
+ON bc.BookId = b.Id
+inner join Category c
+on bc.CategoryId = c.Id
+WHERE c.Title = 'Horror';

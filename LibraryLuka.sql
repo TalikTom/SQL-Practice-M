@@ -263,6 +263,12 @@ WHERE c.Title = 'Horror';
 SELECT LOWER(Member.FirstName) AS LowercaseMemberName
 FROM Member
 
+UPDATE member
+SET 
+    FirstName = LOWER(FirstName);
+
+/* SELECT average release year */
+
 SELECT AVG(book.ReleaseYear) AS AverageReleaseYear FROM Book;
 
 /* Custom function, returns preset value when called, input: book category */
@@ -274,7 +280,7 @@ AS
 BEGIN
 declare @Return varchar(30)
 select @return = case @Category
-when 'Horrow' then 'It'
+when 'Horror' then 'It'
 when 'Adventure' then 'The Adventures of Tom Sawyer'
 when 'Satire' then 'Don Quijote'
 when 'Advanture' then 'Moby-Dick'

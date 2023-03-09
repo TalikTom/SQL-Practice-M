@@ -252,3 +252,10 @@ ON bc.BookId = b.Id
 inner join Category c
 on bc.CategoryId = c.Id
 WHERE c.Title = 'Horror';
+
+
+/*********************************/
+/* Testing SQL functions */
+
+SELECT LOWER(Member.FirstName) AS LowercaseMemberName
+FROM Member;

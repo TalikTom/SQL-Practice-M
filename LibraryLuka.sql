@@ -218,3 +218,25 @@ ON a.Id = b.CategoryId
 INNER JOIN Book c
 ON b.BookId = c.Id
 WHERE b.Title like 'Love%';
+
+
+/*********************************/
+
+/* View practice */
+
+/* Create view that selects the title of the book with the first name and last name of the person who borrowed the book */
+
+CREATE VIEW person_book 
+AS   
+SELECT CONCAT_WS(' ' , m.FirstName, m.LastName) full_name, b.Title, c.Title, CURRENT_TIMESTAMP as "CurrentTime"
+FROM Member m  
+inner join Loan l 
+ON m.Id = l.MemberId  
+inner join Book b 
+ON l.Id = b.LoanId
+inner join BookCategory bc 
+ON bc.BookId = b.Id
+inner join Category c
+on bc.CategoryId = c.Id
+ORDER BY m.FirstName;
+

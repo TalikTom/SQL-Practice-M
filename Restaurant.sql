@@ -28,6 +28,13 @@ create table Customer
     TableId int not null
 )
 
+create table MenuItem
+(
+    Id uniqueidentifier not null PRIMARY KEY,
+    Title varchar (255) not null,
+    Quantity int not null,
+    Price decimal not null
+)
 
 create table CustomerDetails
 (
@@ -52,16 +59,6 @@ create table Payment
     WaiterId uniqueidentifier not null
 )
 
-
-create table MenuItem
-(
-    Id uniqueidentifier not null PRIMARY KEY,
-    Title varchar (255) not null,
-    Quantity int not null,
-    Price decimal not null
-)
-
-
 create table Menu
 (
     Id uniqueidentifier not null PRIMARY KEY,
@@ -69,3 +66,12 @@ create table Menu
     EndDate datetime,
     MenuItemId uniqueidentifier not null
 )
+
+create table OrderItem
+(
+    Id uniqueidentifier not null,
+    Quantity int not null,
+    Price decimal not null,
+    MenuItemId uniqueidentifier not null
+)
+

@@ -51,7 +51,8 @@ create table MenuItem
     Title varchar (255) not null,
     Quantity int not null,
     Price decimal(10,2) not null,
-    OrderItemId uniqueidentifier not null
+    OrderItemId uniqueidentifier not null,
+    MenuId uniqueidentifier not null
 );
 
 
@@ -73,6 +74,14 @@ create table CustomerOrder
 );
 
 
+create table CustomerOrderItem
+(
+    Id uniqueidentifier not null PRIMARY KEY,
+    CustomerOrderId uniqueidentifier not null,
+    OrderItemId uniqueidentifier not null
+);
+
+
 create table Payment 
 (
     Id uniqueidentifier not null PRIMARY KEY,
@@ -86,8 +95,7 @@ create table Menu
 (
     Id uniqueidentifier not null PRIMARY KEY,
     StartDate datetime not null,
-    EndDate datetime,
-    MenuItemId uniqueidentifier not null
+    EndDate datetime
 );
 
 
@@ -95,8 +103,7 @@ create table OrderItem
 (
     Id uniqueidentifier not null PRIMARY KEY,
     Quantity int not null,
-    Price decimal(10,2) not null,
-    CustomerOrderId uniqueidentifier not null
+    Price decimal(10,2) not null
 );
 
 
@@ -121,18 +128,20 @@ alter table CustomerDetails add constraint FK_Customer_CustomerDetails_CustomerI
 REFERENCES Customer (Id);
 
 
-alter table Payment add constraint FK_CustomerOrder_Payment_CustomerOrderId FOREIGN KEY (CustomerOrderId)
+alter table Payment add constraint FK_CustomerOrder_Payment_Id FOREIGN KEY (Id)
       REFERENCES CustomerOrder (Id);
-
-
-alter table OrderItem add constraint FK_CustomerOrder_OrderItem_CustomerOrderId FOREIGN KEY (CustomerOrderId)
-      REFERENCES CustomerOrder (Id);   
 
 
 alter table MenuItem add constraint FK_MenuItem_Menu_MenuId FOREIGN KEY (MenuId)
       REFERENCES Menu (Id);      
 
 alter table MenuItem add constraint FK_OrderItem_MenuItem_OrderItemId FOREIGN KEY (OrderItemId)
+      REFERENCES OrderItem (Id);    
+
+     
+alter table CustomerOrderItem add constraint FK_CustomerOrder_CustomerOrderItem_CustomerOrderId FOREIGN KEY (CustomerOrderId)
+      REFERENCES CustomerOrder (Id);    
+alter table CustomerOrderItem add constraint FK_OrderItem_CustomerOrderItem_OrderItemId FOREIGN KEY (OrderItemId)
       REFERENCES OrderItem (Id);    
 
 

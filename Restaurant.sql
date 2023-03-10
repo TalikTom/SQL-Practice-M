@@ -86,8 +86,7 @@ create table Payment
 (
     Id uniqueidentifier not null PRIMARY KEY,
     PaymentTime datetime not null,
-    PaymentAmount decimal(10,2) not null,
-    CustomerOrderId uniqueidentifier not null
+    PaymentAmount decimal(10,2) not null
 );
 
 
@@ -148,7 +147,7 @@ alter table CustomerOrderItem add constraint FK_OrderItem_CustomerOrderItem_Orde
 
 
 /*----------------------------------------------------------------*/
-/* Input test data */
+/* Insert test data - declaring variables */
 /*----------------------------------------------------------------*/
 
 
@@ -177,6 +176,7 @@ declare @ibrica as uniqueidentifier set @ibrica = newid();
 
 declare @menu1 as uniqueidentifier set @menu1 = newid();
 
+
 /* declaring menu_items id's */
 
 declare @pekingduck as uniqueidentifier set @pekingduck = newid();
@@ -184,9 +184,25 @@ declare @beefwellington as uniqueidentifier set @beefwellington = newid();
 declare @pasta as uniqueidentifier set @pasta = newid();
 
 
+/* declaring menu_items id's */
+
+declare @order1 as uniqueidentifier set @order1 = newid();
+declare @order2 as uniqueidentifier set @order2 = newid();
+declare @order3 as uniqueidentifier set @order3 = newid();
 
 
-/* populating Customer tables */
+/* declaring CustomerOrder id's */
+
+declare @customerorder1 as uniqueidentifier set @order1 = newid();
+declare @customerorder1 as uniqueidentifier set @customerorder2 = newid();
+declare @customerorder1 as uniqueidentifier set @customerorder3 = newid();
+
+
+/*------------------------  */
+/* Insert test data - insert dummy data */
+/*------------------------  */
+
+/* populating Customer table */
 
 insert into Customer values
 (@luka, 1),
@@ -194,19 +210,74 @@ insert into Customer values
 (@jona, 3);
 
 
-/* populating Chef tables */
+/* populating CustomerDetails table */
+
+insert into CustomerDetails values
+(@luka, 'Big tipper'),
+(@jona, 'Rude and loud');
+
+
+/* populating Reservation table */
+
+insert into Reservation values
+(newId(), 2023-02-02 19:00:00, 5, @luka),
+(newId(), 2023-01-01 16:45:00, 2, @marija),
+(newId(), 2023-03-03 19:00:00, 3, @jona);
+
+
+/* populating Chef table */
 
 insert into Chef values
-(@zoran, 'Zoran', 'Zoric', '099/888-7452', 'Sandora Petefija 100', true, '12345678914', 2023-01-01),
-(@andrej, 'Andrej', 'Andrejic', '099/222-7452', 'J.J. Strossmayera 10', false, '12345678912', 2022-01-01),
-(@gordan, 'Gordan', 'Gordic', '091/222-7452', 'Trg Trgova 10', true, '02345678912', 2021-01-01);
+(@zoran, 'Zoran', 'Zoric', '099/888-7452', 'Sandora Petefija 100', true, '12345678914', '2023-01-01'),
+(@andrej, 'Andrej', 'Andrejic', '099/222-7452', 'J.J. Strossmayera 10', false, '12345678912', '2022-01-01'),
+(@gordan, 'Gordan', 'Gordic', '091/222-7452', 'Trg Trgova 10', true, '02345678912', '2021-01-01');
 
 
-/* populating Waiter tables */
+/* populating Waiter table */
 
 insert into Waiter values
-(@toma, 'Toma', 'Tomic', '099/888-1111', 'Sandora Petefija 5','12345678914', 2023-12-12),
-(@zdravko, 'Zdravko', 'Zdravkic', '099/111-7452', 'J.J. Strossmayera 3','12343678912', 2020-12-12),
-(@ibrica, 'Ibrica', 'Ibricic', '092/222-7452', 'Trg Trgova 7', '02345678112', 2019-12-12);
+(@toma, 'Toma', 'Tomic', '099/888-1111', 'Sandora Petefija 5','12345678914', '2023-12-12'),
+(@zdravko, 'Zdravko', 'Zdravkic', '099/111-7452', 'J.J. Strossmayera 3','12343678912', '2020-12-12'),
+(@ibrica, 'Ibrica', 'Ibricic', '092/222-7452', 'Trg Trgova 7', '02345678112', '2019-12-12');
+
+
+/* populating Menu table */
+
+insert into Menu values
+(@menu1, '2022-01-01');
+
+
+/* populating OrderItem table */
+
+insert into OrderItem values
+(@order1, 1, 50.53),
+(@order2, 1, 50.53),
+(@order3, 1, 50.53);
+
+
+/* populating MenuItem table */
+
+insert into MenuItem values
+(@pekingduck, 'Pekin Duck', 10, 50,53, @order1, @menu1),
+(@beefwellington, 'Beef Wellington', 10, 99.99, @order2, @menu1),
+(@pasta, 'Pasta', 10, 10.60, @order3, @menu1);
+
+
+/* populating CustomerOrder table */
+
+insert into CustomerOrder values
+(@customerorder1, @luka, @zoran, @toma),
+(@customerorder2, @marija, @andrej, @zdravko),
+(@customerorder3, @jona, @andrej, @ibrica);
+
+
+/* populating Payment table */
+
+insert into Payment values
+(@customerorder1, 2023-02-02 19:45:00, 500),
+(@customerorder2, 2023-03-03 17:45:00, 800),
+(@customerorder3, 2023-01-01 16:45:00, 300);
+
+
 
 

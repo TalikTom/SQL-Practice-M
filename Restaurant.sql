@@ -244,7 +244,7 @@ insert into Waiter values
 /* populating Menu table */
 
 insert into Menu values
-(@menu1, '2022-01-01');
+(@menu1, '2022-01-01', '2023-12-12');
 
 
 /* populating OrderItem table */

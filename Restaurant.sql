@@ -13,7 +13,7 @@ create table Chef
     LastName varchar(255) not null,
     PhoneNumber varchar(255) not null,
     HomeAddress varchar(255) not null,
-    Certified boolean not null,
+    Certified bit not null,
     OIB char(11) not null,
     HireDate datetime not null
 );
@@ -193,9 +193,9 @@ declare @order3 as uniqueidentifier set @order3 = newid();
 
 /* declaring CustomerOrder id's */
 
-declare @customerorder1 as uniqueidentifier set @order1 = newid();
-declare @customerorder1 as uniqueidentifier set @customerorder2 = newid();
-declare @customerorder1 as uniqueidentifier set @customerorder3 = newid();
+declare @customerorder1 as uniqueidentifier set @customerorder1 = newid();
+declare @customerorder2 as uniqueidentifier set @customerorder2 = newid();
+declare @customerorder3 as uniqueidentifier set @customerorder3 = newid();
 
 
 /*------------------------  */
@@ -220,17 +220,17 @@ insert into CustomerDetails values
 /* populating Reservation table */
 
 insert into Reservation values
-(newId(), 2023-02-02 19:00:00, 5, @luka),
-(newId(), 2023-01-01 16:45:00, 2, @marija),
-(newId(), 2023-03-03 19:00:00, 3, @jona);
+(newId(), '2023-02-02 19:00:00', 5, @luka),
+(newId(), '2023-01-01 16:45:00', 2, @marija),
+(newId(), '2023-03-03 19:00:00', 3, @jona);
 
 
 /* populating Chef table */
 
 insert into Chef values
-(@zoran, 'Zoran', 'Zoric', '099/888-7452', 'Sandora Petefija 100', true, '12345678914', '2023-01-01'),
-(@andrej, 'Andrej', 'Andrejic', '099/222-7452', 'J.J. Strossmayera 10', false, '12345678912', '2022-01-01'),
-(@gordan, 'Gordan', 'Gordic', '091/222-7452', 'Trg Trgova 10', true, '02345678912', '2021-01-01');
+(@zoran, 'Zoran', 'Zoric', '099/888-7452', 'Sandora Petefija 100', 1, '12345678914', '2023-01-01'),
+(@andrej, 'Andrej', 'Andrejic', '099/222-7452', 'J.J. Strossmayera 10', 0, '12345678912', '2022-01-01'),
+(@gordan, 'Gordan', 'Gordic', '091/222-7452', 'Trg Trgova 10', 1, '02345678912', '2021-01-01');
 
 
 /* populating Waiter table */
@@ -258,7 +258,7 @@ insert into OrderItem values
 /* populating MenuItem table */
 
 insert into MenuItem values
-(@pekingduck, 'Pekin Duck', 10, 50,53, @order1, @menu1),
+(@pekingduck, 'Peking Duck', 10, 50.53, @order1, @menu1),
 (@beefwellington, 'Beef Wellington', 10, 99.99, @order2, @menu1),
 (@pasta, 'Pasta', 10, 10.60, @order3, @menu1);
 
@@ -274,9 +274,9 @@ insert into CustomerOrder values
 /* populating Payment table */
 
 insert into Payment values
-(@customerorder1, 2023-02-02 19:45:00, 500),
-(@customerorder2, 2023-03-03 17:45:00, 800),
-(@customerorder3, 2023-01-01 16:45:00, 300);
+(@customerorder1, '2023-02-02 19:45:00', 500),
+(@customerorder2, '2023-03-03 17:45:00', 800),
+(@customerorder3, '2023-01-01 16:45:00', 300);
 
 
 

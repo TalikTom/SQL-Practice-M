@@ -364,3 +364,15 @@ ADD FullName varchar(255);
 
 ALTER TABLE Waiter
 RENAME COLUMN HireDate to StartDate;
+
+
+/* Functions */
+
+create function total(@number1 FLOAT, @number2 FLOAT)
+returns FLOAT
+A
+BEGIN
+    DECLARE @result FLOAT;
+    SET @result = @number1 * @number2;
+    RETURN @result;
+END

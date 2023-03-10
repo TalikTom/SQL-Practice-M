@@ -280,4 +280,24 @@ insert into Payment values
 
 
 
+/*----------------------------------------------------------------*/
+/* PRACTICE TIME */
+/*----------------------------------------------------------------*/
+
+
+/* View and join table */
+
+/* View that selects waiter and chef related to the table where the food was served */
+
+CREATE VIEW Responsibility
+AS
+SELECT w.FirstName as WaitersName, c.FirstName as ChefsName, cu.TableId
+FROM Waiter w
+inner join CustomerOrder co
+ON w.Id = co.WaiterId
+inner join Chef c
+ON co.ChefId = c.ID
+inner join customer cu
+ON co.CustomerId = cu.Id;
+
 

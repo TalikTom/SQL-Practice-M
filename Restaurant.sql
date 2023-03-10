@@ -129,9 +129,75 @@ alter table OrderItem add constraint FK_CustomerOrder_OrderItem_CustomerOrderId 
       REFERENCES CustomerOrder (Id);   
 
 
-alter table Menu add constraint FK_MenuItem_Menu_MenuItemId FOREIGN KEY (MenuItemId)
-      REFERENCES MenuItem (Id);      
+alter table MenuItem add constraint FK_MenuItem_Menu_MenuId FOREIGN KEY (MenuId)
+      REFERENCES Menu (Id);      
 
 alter table MenuItem add constraint FK_OrderItem_MenuItem_OrderItemId FOREIGN KEY (OrderItemId)
       REFERENCES OrderItem (Id);    
+
+
+
+
+/*----------------------------------------------------------------*/
+/* Input test data */
+/*----------------------------------------------------------------*/
+
+
+/* declaring customer id's */
+
+declare @luka as uniqueidentifier set @luka = newid();
+declare @marija as uniqueidentifier set @marija = newid();
+declare @jona as uniqueidentifier set @jona = newid();
+
+
+/* declaring chef id's */
+
+declare @zoran as uniqueidentifier set @zoran = newid();
+declare @andrej as uniqueidentifier set @andrej = newid();
+declare @gordan as uniqueidentifier set @gordan = newid();
+
+
+/* declaring waiter id's */
+
+declare @toma as uniqueidentifier set @toma = newid();
+declare @zdravko as uniqueidentifier set @zdravko = newid();
+declare @ibrica as uniqueidentifier set @ibrica = newid();
+
+
+/* declaring menu id */
+
+declare @menu1 as uniqueidentifier set @menu1 = newid();
+
+/* declaring menu_items id's */
+
+declare @pekingduck as uniqueidentifier set @pekingduck = newid();
+declare @beefwellington as uniqueidentifier set @beefwellington = newid();
+declare @pasta as uniqueidentifier set @pasta = newid();
+
+
+
+
+/* populating Customer tables */
+
+insert into Customer values
+(@luka, 1),
+(@marija, 2),
+(@jona, 3);
+
+
+/* populating Chef tables */
+
+insert into Chef values
+(@zoran, 'Zoran', 'Zoric', '099/888-7452', 'Sandora Petefija 100', true, '12345678914', 2023-01-01),
+(@andrej, 'Andrej', 'Andrejic', '099/222-7452', 'J.J. Strossmayera 10', false, '12345678912', 2022-01-01),
+(@gordan, 'Gordan', 'Gordic', '091/222-7452', 'Trg Trgova 10', true, '02345678912', 2021-01-01);
+
+
+/* populating Waiter tables */
+
+insert into Waiter values
+(@toma, 'Toma', 'Tomic', '099/888-1111', 'Sandora Petefija 5','12345678914', 2023-12-12),
+(@zdravko, 'Zdravko', 'Zdravkic', '099/111-7452', 'J.J. Strossmayera 3','12343678912', 2020-12-12),
+(@ibrica, 'Ibrica', 'Ibricic', '092/222-7452', 'Trg Trgova 7', '02345678112', 2019-12-12);
+
 

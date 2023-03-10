@@ -315,7 +315,7 @@ ON co.WaiterId = w.Id
 
 /* join all tables together */
 
-SELECT 
+SELECT w.FirstName as WaitersFirstName, mi.Title as MenuTitleName, p.PaymentAmount as PaymentAmount, r.NoOfGuests as NumberOfGuests, c.FirstName as ChefsFirstName
 FROM menu m
 INNER JOIN MenuItem mi 
 ON m.Id = mi.MenuId
@@ -337,3 +337,6 @@ INNER JOIN Reservation r
 ON cu.Id = r.CustomerId
 INNER JOIN CustomerDetails cd 
 ON cu.Id = cd.Id
+
+
+/* Basic SQL */

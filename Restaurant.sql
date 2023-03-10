@@ -1,6 +1,11 @@
 use Restaurant
 
 
+/*----------------------------------------------------------------*/
+/* Create tables */
+/*----------------------------------------------------------------*/
+
+
 create table Chef 
 (
     Id uniqueidentifier not null PRIMARY KEY,
@@ -58,12 +63,21 @@ create table Reservation
 );
 
 
-create table Payment 
+create table Order 
 (
     Id uniqueidentifier not null PRIMARY KEY,
     CustomerId uniqueidentifier not null,
     ChefId uniqueidentifier not null,
     WaiterId uniqueidentifier not null
+);
+
+
+create table Payment 
+(
+    Id uniqueidentifier not null PRIMARY KEY,
+    OrderId uniqueidentifier not null,
+    PaymentTime datetime not null,
+    PaymentAmount decimal(10,2) not null
 );
 
 
@@ -84,3 +98,11 @@ create table OrderItem
     MenuItemId uniqueidentifier not null
 );
 
+
+/*----------------------------------------------------------------*/
+/* Alter tables */
+/*----------------------------------------------------------------*/
+
+
+alter table Reservation add constraint FK_Reservation_Customer_CustomerId FOREIGN KEY (CustomerId)
+      REFERENCES Customer (Id);

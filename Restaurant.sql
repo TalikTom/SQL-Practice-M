@@ -118,7 +118,7 @@ alter table CustomerOrder add constraint FK_Customer_CustomerOrder_CustomerId FO
 
 
 alter table CustomerDetails add constraint FK_Customer_CustomerDetails_CustomerId FOREIGN KEY (Id)
-REFERENCES Customer (Id);
+      REFERENCES Customer (Id);
 
 
 alter table Payment add constraint FK_CustomerOrder_Payment_CustomerOrderId FOREIGN KEY (CustomerOrderId)
@@ -130,8 +130,47 @@ alter table OrderItem add constraint FK_CustomerOrder_OrderItem_CustomerOrderId 
 
 
 alter table Menu add constraint FK_MenuItem_Menu_MenuItemId FOREIGN KEY (MenuItemId)
-      REFERENCES MenuItem (Id);      
+      REFERENCES MenuItem (Id);   
+
 
 alter table MenuItem add constraint FK_OrderItem_MenuItem_OrderItemId FOREIGN KEY (OrderItemId)
       REFERENCES OrderItem (Id);    
+
+
+
+/*----------------------------------------------------------------*/
+/* Input test data */
+/*----------------------------------------------------------------*/
+
+
+/* declaring customer id's */
+
+declare @luka as uniqueidentifier set @luka = newid();
+declare @marija as uniqueidentifier set @marija = newid();
+declare @jona as uniqueidentifier set @jona = newid();
+
+
+/* declaring chef id's */
+
+declare @toma as uniqueidentifier set @toma = newid();
+declare @zdravko as uniqueidentifier set @zdravko = newid();
+declare @ibrica as uniqueidentifier set @ibrica = newid();
+
+
+/* declaring waiter id's */
+
+declare @zoran as uniqueidentifier set @zoran = newid();
+declare @andrej as uniqueidentifier set @andrej = newid();
+declare @gordan as uniqueidentifier set @gordan = newid();
+
+
+/* declaring menu id */
+
+declare @menu1 as uniqueidentifier set @menu1 = newid();
+
+/* declaring menu_items id's */
+
+declare @pekingduck as uniqueidentifier set @pekingduck = newid();
+declare @beefwellington as uniqueidentifier set @beefwellington = newid();
+declare @pasta as uniqueidentifier set @pasta = newid();
 

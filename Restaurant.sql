@@ -301,3 +301,14 @@ inner join customer cu
 ON co.CustomerId = cu.Id;
 
 
+/* View that selects waiter and payment time */
+
+CREATE VIEW PaymentWaiter
+AS
+SELECT p.PaymentTime, CONCAT_WS(' ' , w.FirstName, w.LastName) full_name
+FROM Payment p
+inner join CustomerOrder co
+ON p.Id = co.Id
+inner join Waiter w
+ON co.WaiterId = w.Id
+

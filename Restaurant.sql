@@ -337,6 +337,42 @@ INNER JOIN Reservation r
 ON cu.Id = r.CustomerId
 INNER JOIN CustomerDetails cd 
 ON cu.Id = cd.Id
+WHERE w.FirstName = @toma;
 
 
 /* Basic SQL */
+
+/* Update */
+
+UPDATE Chef
+SET Certified = 1;
+WHERE FirstName = 'Andrej';
+
+
+/* Delete */
+
+DELETE FROM Customer WHERE Id = @luka;
+
+
+/* Alter table add columns */
+
+ALTER TABLE Customer
+ADD FullName varchar(255);
+
+
+/* Alter table modify column name */
+
+ALTER TABLE Waiter
+RENAME COLUMN HireDate to StartDate;
+
+
+/* Functions */
+
+create function total(@number1 FLOAT, @number2 FLOAT)
+returns FLOAT
+A
+BEGIN
+    DECLARE @result FLOAT;
+    SET @result = @number1 * @number2;
+    RETURN @result;
+END

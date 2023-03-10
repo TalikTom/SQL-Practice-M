@@ -280,4 +280,60 @@ insert into Payment values
 
 
 
+/*----------------------------------------------------------------*/
+/* PRACTICE TIME */
+/*----------------------------------------------------------------*/
 
+
+/* View and join table */
+
+/* View that selects waiter and chef related to the table where the food was served */
+
+CREATE VIEW Responsibility
+AS
+SELECT w.FirstName as WaitersName, c.FirstName as ChefsName, cu.TableId
+FROM Waiter w
+inner join CustomerOrder co
+ON w.Id = co.WaiterId
+inner join Chef c
+ON co.ChefId = c.ID
+inner join customer cu
+ON co.CustomerId = cu.Id;
+
+
+/* View that selects waiter and payment time */
+
+CREATE VIEW PaymentWaiter
+AS
+SELECT p.PaymentTime, CONCAT_WS(' ' , w.FirstName, w.LastName) full_name
+FROM Payment p
+inner join CustomerOrder co
+ON p.Id = co.Id
+inner join Waiter w
+ON co.WaiterId = w.Id
+
+
+/* join all tables together */
+
+SELECT 
+FROM menu m
+INNER JOIN MenuItem mi 
+ON m.Id = mi.MenuId
+INNER JOIN OrderItem oi
+ON mi.OrderItemId = oi.Id
+INNER JOIN CustomerOrderItem coi
+ON oi.Id = coi.OrderItemId
+INNER JOIN CustomerOrder co
+ON coi.CustomerOrderId = co.Id
+INNER JOIN Payment p
+ON co.Id = p.Id
+INNER JOIN Chef c
+ON co.ChefId = c.Id
+INNER JOIN Waiter w
+ON co.WaiterId = w.Id 
+INNER JOIN Customer cu 
+ON co.CustomerId = cu.Id 
+INNER JOIN Reservation r
+ON cu.Id = r.CustomerId
+INNER JOIN CustomerDetails cd 
+ON cu.Id = cd.Id
